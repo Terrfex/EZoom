@@ -12,9 +12,9 @@ while True:
 
     faces = faceCascade.detectMultiScale(
         gray,
-        scaleFactor=1.1,
-        minNeighbors=5,
-        minSize=(30, 30),
+        scaleFactor=1.1, #some faces may be closer to the camera, they would appear bigger than the faces in the back. The scale factor compensates for this
+        minNeighbors=5, ##defines how many objects are detected near the current one before it declares the face found.
+        minSize=(30, 30), # gives the size of each window of the above param
         flags=cv2.cv.CV_HAAR_SCALE_IMAGE
     )
     # commonly used values for these fields. should different values for the window size, scale factor and find the best settings
