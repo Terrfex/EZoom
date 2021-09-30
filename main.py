@@ -17,6 +17,7 @@ while True:
         minSize=(30, 30),
         flags=cv2.cv.CV_HAAR_SCALE_IMAGE
     )
+    # commonly used values for these fields. should different values for the window size, scale factor and find the best settings
 
     # Draw a rectangle around the faces
     for (x, y, w, h) in faces:
