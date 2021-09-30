@@ -1,8 +1,7 @@
 import cv2
 import sys
 
-cascPath = sys.argv[1]
-faceCascade = cv2.CascadeClassifier(cascPath)
+faceCascade = cv2.CascadeClassifier(haarcascade_frontalface_default.xml)
 
 video_capture = cv2.VideoCapture(0)
 
