@@ -1,6 +1,6 @@
 import cv2
 
-faceCascade = cv2.CascadeClassifier(haarcascade_frontalface_default.xml)
+faceCascade = cv2.CascadeClassifier('C:\\Users\\User\\Desktop\\facedetect\\haarcascade_frontalface_default.xml')
 
 video_capture = cv2.VideoCapture(0)
 
@@ -12,12 +12,11 @@ while True:
 
     faces = faceCascade.detectMultiScale(
         gray,
-        scaleFactor=1.1, #some faces may be closer to the camera, they would appear bigger than the faces in the back. The scale factor compensates for this
-        minNeighbors=5, ##defines how many objects are detected near the current one before it declares the face found.
-        minSize=(30, 30), # gives the size of each window of the above param
-        flags=cv2.cv.CV_HAAR_SCALE_IMAGE
+        scaleFactor=1.1,
+        minNeighbors=6,
+        minSize=(31, 31),
+        flags=cv2.CASCADE_SCALE_IMAGE
     )
-    # commonly used values for these fields. should different values for the window size, scale factor and find the best settings
 
     # Draw a rectangle around the faces
     for (x, y, w, h) in faces:
