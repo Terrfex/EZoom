@@ -1,5 +1,9 @@
 import cv2
 
+class Point://make a point class and calculate the point that is the middle of the rectangle and every frame compare its movement
+    def __init__(self, x, y):
+        
+
 faceCascade = cv2.CascadeClassifier('C:\\Users\\User\\Desktop\\facedetect\\haarcascade_frontalface_default.xml')
 
 video_capture = cv2.VideoCapture(0)
