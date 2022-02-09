@@ -1,8 +1,5 @@
 import cv2
-
-class Point://make a point class and calculate the point that is the middle of the rectangle and every frame compare its movement
-    def __init__(self, x, y):
-        
+     
 
 faceCascade = cv2.CascadeClassifier('C:\\Users\\User\\Desktop\\facedetect\\haarcascade_frontalface_default.xml')
 
@@ -24,7 +21,7 @@ while True:
 
     # Draw a rectangle around the faces
     for (x, y, w, h) in faces:
-        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+        cv2.circle(frame, ((x+w)/2 , (y+h)/2 ), 4, (0, 255, 0), -1)
 
     # Display the resulting frame
     cv2.imshow('Video', frame)
