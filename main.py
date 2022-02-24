@@ -1,16 +1,19 @@
 import cv2
      
 
-def dist(d_x, d_y)
+def dist(d_x, d_y, p_x, p_y)
 {
-	return 0
+	return sqrt( (d_x - p_x)**2 + (d_y - p_y)**2 )
 }
      
      
 faceCascade = cv2.CascadeClassifier('C:\\Users\\User\\Desktop\\facedetect\\haarcascade_frontalface_default.xml')
 
 video_capture = cv2.VideoCapture(0)
-
+p_x = 0
+p_y = 0
+d_x = 0
+d_y = 0
 while True:
     # Capture frame-by-frame
 	ret, frame = video_capture.read()
@@ -24,23 +27,25 @@ while True:
 		minSize=(31, 31),
 		flags=cv2.CASCADE_SCALE_IMAGE
     )
-
-    # Draw a dot in the middle of the face
-	lst = []
+	#choosing the biggest face available
+	face = faces[0]
 	for (x, y, w, h) in faces:
-		#detect the right dot of the face while ignoring the others
-		lst.append(w*h)
-	max(lst)
-	#### maybe try to do it with ictionry likr 30:x,y,w,h
+		if(w*h > face[2] * face[3]
+		   face = (x, y, w, h)
+	
 		
 			
-		
-	d_x = (x+w)/2
-	d_y = (y+h)/2
+	
+    # Draw a dot in the middle of the face
+	p_x = d_x
+	p_y = d_y
+	d_x = (face[0]+face[2])/2
+	d_y = (face[1]+face[3])/2
 	cv2.circle(frame, d_x , d_y ), 4, (0, 255, 0), -1)
 
     # Display the resulting frame
 	cv2.imshow('Video', frame)
+	print("distance is: " + dist(d_x, d_y, p_x, p_y) )
 
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		break
