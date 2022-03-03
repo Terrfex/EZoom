@@ -26,8 +26,8 @@ def main:
 	video_capture = cv2.VideoCapture("C:\\test.mp4")
 	p_x = 0
 	p_y = 0
-	d_x = 7
-	d_y = 7
+	d_x = 0
+	d_y = 0
 
 
 	while True:
