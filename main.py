@@ -1,11 +1,19 @@
 import cv2
      
 
+def is_right(d_x, p_x):
+	return if(p_x <  d_x)
+
+def is_up(d_y, p_y):
+	return if(p_y < d_y)
+
+
+
 def dist_and_direction(d_x, d_y, p_x, p_y):
 	horizontal = -1
 	vertical = -1
-	return (sqrt( (d_x - p_x)**2 + (d_y - p_y)**2 ), , )
-	#returning the distance, left(0)\right(1), up(0)/down(1)
+	return (sqrt( (d_x - p_x)**2 + (d_y - p_y)**2 ), is_right(d_x, p_x) ,is_up(d_y, p_y))
+	#returning the distance, isright(0\1), isup(0\1)
 
      
      
@@ -37,9 +45,6 @@ while True:
 		if(w*h > face[2] * face[3]):
 		   face = (x, y, w, h)
 	
-		
-			
-	
     # Draw a dot in the middle of the face
 	p_x = d_x
 	p_y = d_y
@@ -49,7 +54,7 @@ while True:
 
     # Display the resulting frame
 	cv2.imshow('Video', frame)
-	print("distance is: " + dist(d_x, d_y, p_x, p_y) )
+	print("distance is: " + dist_and_direction(d_x, d_y, p_x, p_y) )
 
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		break
