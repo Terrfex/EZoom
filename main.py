@@ -1,38 +1,15 @@
 import cv2
-import math
-
-
-def is_right(d_x, p_x):
-    if p_x < d_x:
-        return 1
-    return 0
-
-
-def is_up(d_y, p_y):
-    if p_y < d_y:
-        return 1
-    return 0
-
-
-def dist_and_direction(d_x, d_y, p_x, p_y):
-    distan = math.sqrt((d_x - p_x) ** 2 + (d_y - p_y) ** 2)
-    up = is_up(d_y, p_y)
-    right = is_right(d_x, p_x)
-
-    return distan, right, up
-
-
-# returning the distance, isright(0\1), isup(0\1)
-
+import serial
 
 def main():
-    faceCascade = cv2.CascadeClassifier('C:\\Users\\BigSale2u\\Desktop\\py\\haarcascade_frontalface_default.xml')
+    port = serial.Serial('COM7',9600)
+    faceCascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
     video_capture = cv2.VideoCapture(0)
-    p_x = 0
-    p_y = 0
-    d_x = 7
-    d_y = 7
+    x = 0
+    y = 0
+    xArg = 90
+    yArg = 90
 
     while True:
         # Capture frame-by-frame
@@ -55,12 +32,26 @@ def main():
                     face = (x, y, w, h)
 
             # Draw a dot in the middle of the face
-            p_x = d_x
-            p_y = d_y
-            d_x = (face[0] + face[2]/2)
-            d_y = (face[1] + face[3]/2)
-            cv2.circle(frame, (int(d_x), int(d_y)), 10, (0, 255, 0), -1)  # unknown why there is a 300px offset
-            print("distance is: " + str(dist_and_direction(d_x, d_y, p_x, p_y)))
+
+            x = (face[0] + face[2]/2)
+            y = (face[1] + face[3]/2)
+            
+            cv2.circle(frame, (int(x), int(y)), 9, (0, 0, 255), -1)
+            #screen size is 640X480 so scaling constant for x axis is 640/180 ->3.55555, scaling constant for y axis is 480/180 -> 2.66667
+            #scaling constant may change because the camera does not capture 180 degrees
+            
+
+            
+        xArg = int(x / 4.923)
+        yArg = int(y / 3.2)
+        #values are coming inverted(when i move left the pointer moves right) so i need to invert the values(180 -> 0, 45 -> 135 etc..)
+        yArg = 180 - yArg
+        if yArg < 70:
+            yArg = 70
+        fnlstr = "X"+str(xArg+20)+"Y"+str(yArg)
+        
+        print("\nSent: " + fnlstr)
+        port.write(fnlstr.encode())
         # Display the resulting frame
         cv2.imshow('Video', frame)
 
