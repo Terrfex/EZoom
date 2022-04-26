@@ -46,8 +46,8 @@ def main():
         yArg = int(y / 3.2)
         #values are coming inverted(when i move left the pointer moves right) so i need to invert the values(180 -> 0, 45 -> 135 etc..)
         yArg = 180 - yArg
-        if yArg < 70:
-            yArg = 70
+        if yArg < 75:
+            yArg = 75
         fnlstr = "X"+str(xArg+20)+"Y"+str(yArg)
         
         print("\nSent: " + fnlstr)
